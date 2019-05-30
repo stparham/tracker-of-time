@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-
 .App-header {
   background-color: #282c34;
   height: 10vh;
@@ -12,10 +11,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 .App-center-container {
@@ -30,4 +25,12 @@
   height: 20vh;
   max-width: 80vw;
   overflow-y: scroll;
+}
+
+.App-activity-item {
+  cursor: pointer;
+}
+
+.App-activity-item:hover {
+  background-color: #ddd;
 }

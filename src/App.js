@@ -1,17 +1,49 @@
 import React, { useState } from 'react';
 import './App.css';
 
+import ActivityList from './ActivityList';
+
 const ACTIVITIES = [
-  'Entertainment',
-  'Work',
-  'Eating',
-  'Sleeping',
-  'Blah',
-  'Entertainment',
-  'Work',
-  'Eating',
-  'Sleeping',
-  'Blah',
+  {
+    id: 0,
+    title: 'Entertainment',
+  },
+  {
+    id: 1,
+    title: 'Work',
+  },
+  {
+    id: 2,
+    title: 'Eating',
+  },
+  {
+    id: 3,
+    title: 'Sleeping',
+  },
+  {
+    id: 4,
+    title: 'Blah',
+  },
+  {
+    id: 5,
+    title: 'Entertainment',
+  },
+  {
+    id: 6,
+    title: 'Work',
+  },
+  {
+    id: 7,
+    title: 'Eating',
+  },
+  {
+    id: 8,
+    title: 'Sleeping',
+  },
+  {
+    id: 9,
+    title: 'Blah',
+  },
 ];
 
 
@@ -40,21 +72,23 @@ function fuzzyMatch(shortStr, longStr) {
 }
 
 /**
- * Returns an array of the strings from the given strings to search that
+ * Returns a subset of the array of objects passed in whose .title property
  * fuzzy match with the given comparison string.
  *
  * @param {string} comparisonString the string to match
- * @param {array} stringsToSearch the strings to match with the comparisonString
- * @return {array} a subset of the stringsToSearch that match the comparisonString
+ * @param {array} itemsToSearch the objects with .title properties to match
+ *    with the comparisonString
+ * @return {array} a subset of the itemsToSearch that match the comparisonString
  */
-function fuzzySearch(comparisonString, stringsToSearch) {
+function fuzzySearch(comparisonString, itemsToSearch) {
   const lowerCompStr = comparisonString.toLowerCase();
-  return stringsToSearch.filter((str) => fuzzyMatch(lowerCompStr, str));
+  return itemsToSearch.filter((item) => fuzzyMatch(lowerCompStr, item.title));
 }
 
 function App() {
   const [allActivities] = useState(ACTIVITIES);
   const [visibleActivities, setVisibleActivities] = useState(allActivities);
+  const [selectedActivity, setSelectedActivity] = useState(null);
 
   function filterResults(event) {
     const inputText = event.target.value;
@@ -62,11 +96,12 @@ function App() {
     setVisibleActivities(filteredActivities);
   }
 
-  let listItems = <li key="DNE">No matches found</li>;
-  if (visibleActivities.length > 0) {
-    listItems = visibleActivities.map((activity, idx) => {
-      return <li key={idx}>{activity}</li>;
-    });
+  function selectActivity(id) {
+    if (selectedActivity === id) {
+      setSelectedActivity(null);
+    } else {
+      setSelectedActivity(id);
+    }
   }
 
   return (
@@ -79,11 +114,7 @@ function App() {
 
       <br/>
 
-      <div className="App-center-container">
-        <ul className="App-activity-list">
-          { listItems }
-        </ul>
-      </div>
+      <ActivityList activities={visibleActivities} selectActivity={selectActivity} selectedActivity={selectedActivity}/>
 
       <br/>
 
