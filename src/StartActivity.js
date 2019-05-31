@@ -48,7 +48,7 @@ const ACTIVITIES = [
   },
 ];
 
-function StartActivity() {
+function StartActivity(props) {
   const [allActivities] = useState(ACTIVITIES);
   const [visibleActivities, setVisibleActivities] = useState(allActivities);
   const [selectedActivity, setSelectedActivity] = useState(null);
@@ -63,6 +63,11 @@ function StartActivity() {
     // if the currently selected id matches the passed in one, then deselect the activity
     // otherwise select the passed in one
     setSelectedActivity(selectedActivity === id ? null : id);
+  }
+
+  function startActivity() {
+    console.log('Starting activity...');
+    props.history.push('/active');
   }
 
   return (
@@ -83,7 +88,7 @@ function StartActivity() {
 
       <br/>
 
-      <button onClick={() => console.log('Starting activity...')}>Start</button>
+      <button onClick={startActivity}>Start</button>
     </div>
   );
 }

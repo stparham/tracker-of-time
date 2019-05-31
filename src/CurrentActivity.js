@@ -2,6 +2,10 @@ import React from 'react';
 import './CurrentActivity.css';
 
 function CurrentActivity(props) {
+  function stopActivity() {
+    console.log('Stopping activity...');
+    props.history.push('/');
+  }
   return (
     <div className="CurrentActivity">
       <h1>You are currently...</h1>
@@ -14,7 +18,7 @@ function CurrentActivity(props) {
 
       <br/>
 
-      <button onClick={() => console.log('Stopping activity...')}>Stop</button>
+      <button onClick={stopActivity}>Stop</button>
     </div>
   );
 }
